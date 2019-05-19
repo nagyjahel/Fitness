@@ -4,8 +4,8 @@ namespace Fitness.Models
 {
     public class ErrorViewModel
     {
-        public string RequestId { get; set; }
+        public string Id { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => !string.IsNullOrEmpty(Id);
     }
 }

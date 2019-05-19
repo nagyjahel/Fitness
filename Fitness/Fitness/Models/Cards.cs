@@ -7,7 +7,7 @@ namespace Fitness.Models
 {
     public class Cards
     {
-        public int CardNumber { get; set; }
+        public int Id { get; set; }
         public bool IsActive { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidUntil { get; set; }

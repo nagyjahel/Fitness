@@ -3,6 +3,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1>Welcome</h1>
+    <div>
+        <a asp-action="Index" asp-controller="Abonaments" class="btn ui-button coursesButton">Bérletek</a>
+        <a asp-action="Index" asp-controller="Clients" class="btn ui-button coursesButton">Ügyfelek</a>
+        @*<a asp-action="Index" asp-controller="Algorithms" class="btn ui-button algorithmsButton">Algorithms</a>*@
+    </div>
 </div>

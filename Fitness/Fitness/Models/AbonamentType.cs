@@ -7,7 +7,7 @@ namespace Fitness.Models
 {
     public class AbonamentType
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public int Name { get; set; }
         public string Description { get; set; }
     }

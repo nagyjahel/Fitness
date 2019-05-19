@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System.Collections.Generic;
 
 namespace Fitness.Data.Migrations
 {
