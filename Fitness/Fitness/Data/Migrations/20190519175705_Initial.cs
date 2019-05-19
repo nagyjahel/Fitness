@@ -9,17 +9,27 @@ namespace Fitness.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AbonamentTypes",
+                name: "Abonaments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Type = table.Column<byte>(nullable: false),
+                    Constraints = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: true),
+                    EndDate = table.Column<DateTime>(nullable: true),
+                    StartTime = table.Column<TimeSpan>(nullable: true),
+                    EndTime = table.Column<TimeSpan>(nullable: true),
+                    AccessLimitPerDay = table.Column<int>(nullable: false),
+                    AccessLimit = table.Column<int>(nullable: false),
+                    CompanyId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AbonamentTypes", x => x.Id);
+                    table.PrimaryKey("PK_Abonaments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,29 +110,6 @@ namespace Fitness.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Abonaments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    TypeId = table.Column<int>(nullable: true),
-                    CompanyId = table.Column<int>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Abonaments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Abonaments_AbonamentTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "AbonamentTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
@@ -170,11 +157,6 @@ namespace Fitness.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Abonaments_TypeId",
-                table: "Abonaments",
-                column: "TypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Companies_Typeid",
                 table: "Companies",
                 column: "Typeid");
@@ -204,9 +186,6 @@ namespace Fitness.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "FitnessUsers");
-
-            migrationBuilder.DropTable(
-                name: "AbonamentTypes");
 
             migrationBuilder.DropTable(
                 name: "CompanyTypes");

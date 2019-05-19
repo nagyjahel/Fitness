@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Fitness.Models
 {
-    public class AbonamentType
-    {
-        public int Id { get; set; }
-        public int Name { get; set; }
-        public string Description { get; set; }
-    }
+    //public class AbonamentType
+    //{
+    //    public int Id { get; set; }
+    //    public int Name { get; set; }
+    //    public string Description { get; set; }
+    //}
 }

@@ -1,0 +1,61 @@
+﻿body {
+    background: url('../images/bg.jpeg');
+}
+
+h3 {
+    font-style: normal;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 0;
+    padding: 3px 0;
+    font-style: italic;
+}
+
+h1 {
+    font-style: normal;
+    font-size: 55px;
+    font-weight: 400;
+    letter-spacing: 0;
+    padding: 20px 0;
+    color: rgb(36, 165, 142);
+}
+
+h4 {
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0;
+    padding: 2px 0;
+    color: white;
+}
+
+.pageInformation {
+
+    text-align:left;
+    padding: 15px;
+}
+
+.navContainer {
+    text-align: left;
+    padding: 60px 60px 15px 15px;
+}
+
+.clientsButton {
+    background-color: #ff8c1a;
+    width: 100%;
+}
+
+.abonamentsButton {
+    background-color: #ff1a1a;
+    width: 100%;
+}
+
+.abonamentsButton:hover {
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.clientsButton:hover {
+        opacity: 0.5;
+        text-decoration: none;
+}

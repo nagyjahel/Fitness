@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitness.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190519111937_Initial")]
+    [Migration("20190519175705_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,36 +27,33 @@ namespace Fitness.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccessLimit");
+
+                    b.Property<int>("AccessLimitPerDay");
+
                     b.Property<int>("CompanyId");
 
+                    b.Property<string>("Constraints");
+
                     b.Property<string>("Description");
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<TimeSpan?>("EndTime");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("TypeId");
+                    b.Property<DateTime?>("StartDate");
+
+                    b.Property<TimeSpan?>("StartTime");
+
+                    b.Property<byte>("Type");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TypeId");
 
                     b.ToTable("Abonaments");
-                });
-
-            modelBuilder.Entity("Fitness.Models.AbonamentType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AbonamentTypes");
                 });
 
             modelBuilder.Entity("Fitness.Models.Cards", b =>
@@ -360,13 +357,6 @@ namespace Fitness.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Fitness.Models.Abonament", b =>
-                {
-                    b.HasOne("Fitness.Models.AbonamentType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
                 });
 
             modelBuilder.Entity("Fitness.Models.Company", b =>

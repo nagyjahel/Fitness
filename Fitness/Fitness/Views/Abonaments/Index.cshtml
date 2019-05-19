@@ -1,8 +1,112 @@
-﻿@{
+﻿@model List<Abonament>
+@{
     ViewData["Title"] = "Bérletek";
 }
 
+@section Styles {
+    
+    <link rel="stylesheet" href="~/css/abonaments.css" />
+}
+        <div class="page-header">
+            <h2>Bérletek <a asp-action="Add" asp-controller="Abonaments" class="btn btn-default newAbonamentButton"> <span class="glyphicon glyphicon-plus"> </span> Új bérlet létrehozása</a></h2>
+        </div>
+        <div class="col-lg-12 row">
+            @if (Model == null)
+            {
+                <div>
+                    <h4>
+                        Még nincsenek létező bérletek. Hozzon létre egyet!
+                    </h4>
+                </div>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
 
-<div>
-    <p>Welcome to abonaments</p>
-</div>
+                    <div class="col-lg-12 row list listElement">
+                        <div class="col-lg-12 list abonamentHeader">
+                            <div class="col-lg-8 list">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </div>
+                            <div class="col-lg-4 list listElementActions">
+                                <a class="whiteLink" asp-action="Edit" asp-route-id="@item.Id"><span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 list listElementContent">
+                            <div class="col-lg-3 listElementLeft active">
+                                @if (item.Type == Enums.AbonamentType.AccessLimit)
+                                {
+                                    <img class="image" src="~/images/accessLimit.png" alt="" />
+                                }
+                                else if(item.Type == Enums.AbonamentType.Periodic)
+                                {
+                                    <img class="image" src="~/images/periodic.jpg" alt="" />
+                                }
+                                else
+                                {
+                                    <img class="image" src="~/images/combined.png" alt="" />
+                                }
+
+                            </div>
+                            <div class="col-lg-9 listElementRight">
+
+                                <div class="col-lg-12 list listElementProperties">
+
+                                    <b>Megnevezés: </b> @Html.DisplayFor(modelItem => item.Name)
+
+                                </div>
+                                <hr />
+                                <div class="col-lg-12 list listElementDescription">
+                                    <b>Leírás:</b><br />
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </div>
+                                <hr />
+                                <div class="col-lg-6 list listElementModules">
+                                    <b>Bérlet típusa:</b><br />
+                                    @Html.DisplayFor(modelItem => item.Type)
+                                </div>
+                                <div class="col-lg-6 list listElementModules">
+                                    <b>Engedélyezett napok belépésre:</b><br />
+                                    @Html.DisplayFor(modelItem => item.Constraints)
+                                </div>
+                                <hr />
+                                @if (item.StartDate != null && item.EndDate != null)
+                                {
+                                    <div class="col-lg-6 list listElementModules">
+                                        <b>Érvényességi időtartam (nap):</b><br />
+                                        @Html.DisplayFor(modelItem => item.StartDate) - tól @Html.DisplayFor(modelItem => item.EndDate) - ig
+                                    </div>
+                                }
+                                @if (item.StartTime != null && item.EndTime != null)
+                                {
+                                    <div class="col-lg-6 list listElementModules">
+                                        <b>Érvényességi időtartam (óra):</b><br />
+                                        @Html.DisplayFor(modelItem => item.StartTime) - tól @Html.DisplayFor(modelItem => item.EndTime) - ig
+                                    </div>
+                                    <hr />
+                                }
+                                @if (item.AccessLimit != 0)
+                                {
+                                    <div class="@(item.AccessLimitPerDay == 0 ? "col-lg-12" : "col-lg-6") list listElementModules">
+                                        <b>Belépések maximális száma:</b><br />
+                                        @Html.DisplayFor(modelItem => item.AccessLimit)
+                                    </div>
+                                }
+                                @if (item.AccessLimitPerDay != 0)
+                                {
+                                    <div class="@(item.AccessLimit == 0 ? "col-lg-12" : "col-lg-6") list listElementModules">
+                                        <b>Belépések maximális száma/nap:</b><br />
+                                        @Html.DisplayFor(modelItem => item.AccessLimitPerDay)
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+            }
+        </div>
