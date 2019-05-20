@@ -114,42 +114,97 @@
             </div>
         </div>
 
+        <div class="col-lg-12">
+            <h3>A bérletekről részletesen</h3>
+            @foreach (var item in Model.Abonaments)
+            {
 
+                <div class="col-lg-12 row list listElement">
+                    <div class="col-lg-12 list abonamentHeader">
+                        @*<div class="col-lg-8 list">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </div>*@
+                        <div class="col-lg-4 list listElementActions">
+                            <a class="whiteLink" asp-action="Edit" asp-route-id="@item.AbonamentId"><span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Edit"></span></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 list listElementContent">
+                        @*<div class="col-lg-3 listElementLeft active">
+                            @if (item.BasicAbonament.Type == Enums.AbonamentType.AccessLimit)
+                            {
+                                <img class="image" src="~/images/accessLimit.png" alt="" />
+                            }
+                            else if (item.BasicAbonament.Type == Enums.AbonamentType.Periodic)
+                            {
+                                <img class="image" src="~/images/periodic.jpg" alt="" />
+                            }
+                            else
+                            {
+                                <img class="image" src="~/images/combined.png" alt="" />
+                            }
+
+                        </div>*@
+                        <div class="col-lg-12 listElementRight">
+
+                            <div class="col-lg-6 list listElementProperties">
+
+                                <b>Megnevezés: </b> @Html.DisplayFor(modelItem => item.Name)
+
+                            </div>
+                            
+                            <div class="col-lg-6 list listElementDescription">
+                                <b>Leírás:</b>
+                                @Html.DisplayFor(modelItem => item.BasicAbonament.Description)
+                            </div>
+                            <hr />
+                            <div class="col-lg-6 list listElementModules">
+                                <b>Bérlet típusa:</b>
+                                @Html.DisplayFor(modelItem => item.BasicAbonament.Type)
+                            </div>
+                            <div class="col-lg-12 list listElementModules">
+                                <b>Engedélyezett napok belépésre:</b>
+                                @Html.DisplayFor(modelItem => item.BasicAbonament.Constraints)
+                            </div>
+                            
+                            @if (item.StartDate != null && item.EndDate != null)
+                            {
+                            <div class="col-lg-12 list listElementModules">
+                                <b>Érvényességi időtartam (nap):</b>
+                                @Html.DisplayFor(modelItem => item.StartDate) - tól @Html.DisplayFor(modelItem => item.EndDate) - ig
+                            </div>
+                            
+                            }
+                            
+                            
+                            @if (item.AccessLimit != 0)
+                            {
+                            <div class="@(item.BasicAbonament.AccessLimitPerDay == 0 ? "col-lg-12" : "col-lg-12") list listElementModules">
+                                <b>Belépések maximális száma:</b>
+                                @Html.DisplayFor(modelItem => item.AccessLimit)
+                            </div>
+                            
+                            }
+                            @if (item.BasicAbonament.AccessLimitPerDay != 0)
+                            {
+                                <div class="@(item.AccessLimit == 0 ? "col-lg-12" : "col-lg-12") list listElementModules">
+                                    <b>Belépések maximális száma/nap:</b>
+                                    @Html.DisplayFor(modelItem => item.BasicAbonament.AccessLimitPerDay)
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+
+        </div>
         <div class="col-12">
             <a asp-action="Index">Vissza az ügyfelekhez</a>
         </div>
 
-        <div class="col-lg-12 row">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group col-lg-6">
-                    <label asp-for="@Model.NewAbonament.Name" class="control-label"></label>
-                    @if (!Model.NewAbonament.Type.Equals(""))
-                    {
-                        if (Model.NewAbonament.Type == Enums.AbonamentType.AccessLimit)
-                        {
-                        <select id="selectedType" asp-for="@Model.NewAbonament.Name" asp-items="@Model.AccessLimitAbonaments" class="form-control">
-                            <option selected="selected" value="">Kérem válasszon</option>
-                        </select>
-
-                        }
-                        else if (Model.NewAbonament.Type == Enums.AbonamentType.Periodic)
-                        {
-                        <select id="selectedType" asp-for="@Model.NewAbonament.Name" asp-items="@Model.PeriodicAbonaments" class="form-control">
-                            <option selected="selected" value="">Kérem válasszon</option>
-                        </select>
-                        }
-                        else if (Model.NewAbonament.Type == Enums.AbonamentType.Combined)
-                        {
-                    <select id="selectedType" asp-for="@Model.NewAbonament.Name" asp-items="@Model.CombinedAbonaments" class="form-control">
-                        <option selected="selected" value="">Kérem válasszon</option>
-                    </select>
-                        }
-                    }
-
-                    <span asp-validation-for="@Model.NewAbonament.Name" class="text-danger"></span>
-                </div>*@
-
-        </div>
+        
 
 
     </div>

@@ -76,7 +76,14 @@ namespace Fitness.Controllers
             var cards = await _context.Cards.Where(x => x.UserId == id)
                 .FirstOrDefaultAsync();
 
+
             var abonaments = await _context.Abonaments.Where(x => x.CardId == cards.Id).ToListAsync();
+            foreach(var item in abonaments)
+            {
+                var basic = await _context.BasicAbonaments.FirstOrDefaultAsync(x => x.Name == item.Name);
+                item.BasicAbonament = basic;
+            }
+
             cards.Abonaments = abonaments;
             
 

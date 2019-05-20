@@ -285,7 +285,7 @@ namespace Fitness.Migrations
                 {
                     AbonamentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BasicAbonamentId = table.Column<int>(nullable: false),
+                    BasicAbonamentId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: true),
@@ -296,6 +296,12 @@ namespace Fitness.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Abonaments", x => x.AbonamentId);
+                    table.ForeignKey(
+                        name: "FK_Abonaments_BasicAbonaments_BasicAbonamentId",
+                        column: x => x.BasicAbonamentId,
+                        principalTable: "BasicAbonaments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Abonaments_Cards_CardId",
                         column: x => x.CardId,
@@ -325,6 +331,11 @@ namespace Fitness.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Abonaments_BasicAbonamentId",
+                table: "Abonaments",
+                column: "BasicAbonamentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Abonaments_CardId",
@@ -400,9 +411,6 @@ namespace Fitness.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BasicAbonaments");
-
-            migrationBuilder.DropTable(
                 name: "Companies");
 
             migrationBuilder.DropTable(
@@ -416,6 +424,9 @@ namespace Fitness.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTypes");
+
+            migrationBuilder.DropTable(
+                name: "BasicAbonaments");
 
             migrationBuilder.DropTable(
                 name: "Cards");

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitness.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190520212240_Initial")]
+    [Migration("20190520221911_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace Fitness.Migrations
 
                     b.Property<int>("AccessLimit");
 
-                    b.Property<int>("BasicAbonamentId");
+                    b.Property<int?>("BasicAbonamentId");
 
                     b.Property<int>("CardId");
 
@@ -42,6 +42,8 @@ namespace Fitness.Migrations
                     b.Property<DateTime?>("StartDate");
 
                     b.HasKey("AbonamentId");
+
+                    b.HasIndex("BasicAbonamentId");
 
                     b.HasIndex("CardId");
 
@@ -385,6 +387,10 @@ namespace Fitness.Migrations
 
             modelBuilder.Entity("Fitness.Models.Abonament", b =>
                 {
+                    b.HasOne("Fitness.Models.BasicAbonament", "BasicAbonament")
+                        .WithMany()
+                        .HasForeignKey("BasicAbonamentId");
+
                     b.HasOne("Fitness.Models.Card")
                         .WithMany("Abonaments")
                         .HasForeignKey("CardId")

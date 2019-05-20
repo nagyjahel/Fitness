@@ -9,7 +9,7 @@ namespace Fitness.Models
 {
     public class Abonament
     {
-        public int BasicAbonamentId { get; set; }
+        public BasicAbonament BasicAbonament { get; set; }
         public int AbonamentId { get; set; }
         [Display(Name = "Név")]
         public string Name { get; set; }
