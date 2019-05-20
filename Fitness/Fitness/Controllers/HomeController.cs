@@ -18,18 +18,32 @@ namespace Fitness.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int foundCard, int foundUser )
         {
+            if(foundCard==-1 && foundUser == 0)
+            {
+                ViewBag.Error = "Nem található a megadott azonosítójú kártya. Probáld újra!";
+                return View();
+            }
+
+            if(foundCard == 0 && foundUser == -1)
+            {
+                ViewBag.Error = "A kártyához tartozó ügyfél már nem szerepel a rendszerben!";
+                return View();
+            }
+
             return View();
+
         }
         [HttpPost]
         public IActionResult Index(int cardId)
         {
+            
             var card = _context.Cards.Find(cardId);
-            if (card == null) return Index();
+            if (card == null) return Index(-1,0);
 
             var user = _context.FitnessUsers.Find(card.UserId);
-            if (user == null) return NotFound();
+            if (user == null) return Index(0, -1);
 
             var abonamentsOnCard = _context.AbonamentsOnCard.Where(a => a.CardId == card.Id).ToList();
             List<Abonament> abonaments = new List<Abonament>();

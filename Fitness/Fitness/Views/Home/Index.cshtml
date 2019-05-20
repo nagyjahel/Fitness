@@ -19,6 +19,7 @@
                 <input id="cardId" class="form-control" type="text" name="cardId" />
                 <input style="background-color:#ccc"type="submit" id="cardSearch" class="btn btn-default" value="Keresés" />
             </form>
+            <p style="color:darkred">@ViewBag.Error</p>
             @*<a asp-action="Index" asp-controller="Abonaments"><h4>Bérletek</h4></a>*@
         </div>
         <a asp-action="Add" asp-controller="Clients">
