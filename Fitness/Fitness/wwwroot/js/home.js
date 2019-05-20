@@ -1,7 +1,9 @@
 ﻿'use strict';
-(function ($) {
+(function ($, Fitness) {
 
-    function sendAjax(type,url, cardId) {
+    Fitness = Fitness || {};
+    Fitness.userId = null;
+    function sendAjax(type,url,userId, abonamentId) {
         $.ajax({
 
             type: type,
@@ -10,12 +12,13 @@
 
             url: url,
 
-            data: { 'cardId': cardId},
+            data: { 'userId': userId, 'abonamentId': abonamentId},
 
             async: true,
 
             success: function (response) {
 
+                prompt("Sikeresen be lett léptetve!");
                 console.log("Ok");
 
             },
@@ -28,14 +31,21 @@
 
         });
     }
-
+    
+    Fitness.saveUserId = function (userId) {
+        this.userId = userId;
+    };
     $(document).ready(function () {
         $("#cardSearch").click(function () {
            //sendAjax('GET', 'Home/Card/',$("#cardId").val());
+        });
 
+        $(".entrance").click(function () {
+            $(".entrance").attr("enabled", "false");
+            sendAjax('POST', 'Home/Entrance/', Fitness.userId, $(this).attr('id'));
         });
     });
 
+    return Fitness;
 
-
-})(jQuery);
+})(jQuery, window.Fitness);

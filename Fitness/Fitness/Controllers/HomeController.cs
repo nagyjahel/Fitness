@@ -61,6 +61,24 @@ namespace Fitness.Controllers
            
         }
 
+
+        [HttpPost]
+        public JsonResult Entrance(int userId,int abonamentId)
+        {
+            _context.Entrances.Add(new Entrance()
+            {
+                UserId = userId,
+                AbonamentId = abonamentId,
+                EnteringTime = DateTime.Now,
+                IsDeleted = false
+            });
+
+            return Json(new
+            {
+                success = true,
+                msg = "Successful entrance!"
+            });
+        }
         public IActionResult Privacy()
         {
             return View();
