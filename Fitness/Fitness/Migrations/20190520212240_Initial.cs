@@ -62,6 +62,25 @@ namespace Fitness.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BasicAbonaments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Type = table.Column<byte>(nullable: false),
+                    Constraints = table.Column<string>(nullable: true),
+                    AccessLimitPerDay = table.Column<int>(nullable: false),
+                    CompanyId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BasicAbonaments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cards",
                 columns: table => new
                 {
@@ -261,34 +280,28 @@ namespace Fitness.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BasicAbonaments",
+                name: "Abonaments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    AbonamentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BasicAbonamentId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Type = table.Column<byte>(nullable: false),
-                    Constraints = table.Column<string>(nullable: true),
-                    AccessLimitPerDay = table.Column<int>(nullable: false),
-                    AccessLimit = table.Column<int>(nullable: false),
-                    CompanyId = table.Column<int>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    AbonamentId = table.Column<int>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: true),
-                    CardId = table.Column<int>(nullable: true)
+                    AccessLimit = table.Column<int>(nullable: false),
+                    CardId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BasicAbonaments", x => x.Id);
+                    table.PrimaryKey("PK_Abonaments", x => x.AbonamentId);
                     table.ForeignKey(
-                        name: "FK_BasicAbonaments_Cards_CardId",
+                        name: "FK_Abonaments_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "Cards",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -312,6 +325,11 @@ namespace Fitness.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Abonaments_CardId",
+                table: "Abonaments",
+                column: "CardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -353,11 +371,6 @@ namespace Fitness.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasicAbonaments_CardId",
-                table: "BasicAbonaments",
-                column: "CardId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Companies_Typeid",
                 table: "Companies",
                 column: "Typeid");
@@ -365,6 +378,9 @@ namespace Fitness.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Abonaments");
+
             migrationBuilder.DropTable(
                 name: "AbonamentsOnCard");
 
@@ -402,13 +418,13 @@ namespace Fitness.Migrations
                 name: "UserTypes");
 
             migrationBuilder.DropTable(
+                name: "Cards");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Cards");
 
             migrationBuilder.DropTable(
                 name: "CompanyTypes");

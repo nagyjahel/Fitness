@@ -25,13 +25,9 @@
             
             <div class="col-lg-4 row">
                 <div class="card row" style="width:100%;">
-                    @if(Model.IndexOf(item) % 2 == 0){
-                    <img class="card-img-top" src="~/images/avatarPalma.jpg" alt="Card image" style="width:300px; height:393px">
-                    }
-                    else
-                    {
-                    <img class="card-img-top" src="~/images/avatarJahel.jpg" alt="Card image" style="width:300px; height:393px">
-                    }
+                    
+                    <img class="card-img-top" src="~/images/@item.Image" alt="Card image" style="width:300px; height:393px">
+                   
                     <div class="card_body">
                         <h4 class="card_title">@item.FirstName @item.LastName</h4>
                         <p class="card_text">@item.Email</p>

@@ -18,7 +18,6 @@ namespace Fitness.Models
         public String Constraints { get; set; }
         [Display(Name = "Belépések maximális száma naponta")]
         public int AccessLimitPerDay { get; set; }
-        public int AccessLimit { get; set; }
         public int CompanyId { get; set; }
         public bool IsDeleted { get; set; }
 

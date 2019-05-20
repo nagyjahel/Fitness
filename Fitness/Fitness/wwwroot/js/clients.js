@@ -9,7 +9,7 @@
             else {
                 $('#firstName').prop('disabled', true);
             }
-            
+
         });
 
         $('#editLastName').on('click', function (event) {
@@ -42,38 +42,19 @@
 
         });
 
-        $('#addNewCard').on('click', function () {
-            $('#newCard').prop('hidden', false);
-        });
-    });
+        $('#newAbonamentButton').on('click', function () {
+            if ($('#abonamentDetails').prop('hidden') == true) {
+                $('#newAbonamentButton').removeClass('glyphicon glyphicon-menu-down');
+                $('#newAbonamentButton').addClass('glyphicon glyphicon-menu-up');
+                $('#abonamentDetails').prop('hidden', false);
+            }
+            else {
+                $('#newAbonamentButton').removeClass('glyphicon glyphicon-menu-up');
+                $('#newAbonamentButton').addClass('glyphicon glyphicon-menu-down');
+                $('#abonamentDetails').prop('hidden', true);
 
-    function addCardToUset() {
-        var cardId = $('#cardId').text();
-        var cardDateFrom = $('#cardDateFrom').text();
-        var cardDateTo = $('#cardDateTo').text();
-        var userId = $('#userId').val();
-
-        sendAjax("Cards", cardId, cardDateFrom, cardDateTo, userId);
-    }
-
-    function sendAjax(type, cardId, dateFrom, dateTo, userId) {
-        var url = null;
-        if (type == "Clients") {
-            url = "/" + type + "/Cards/" + cardId + "/" + dateFrom + "/" + dateTo + "/" + userId;           
-        }
-        $.ajax({
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            url: url,
-            data: "{'" + type + "':'" + cardId + "','dateFrom':'" + dateFrom + "','" + "','dateTo':'" + dateTo + "','" + "','userId':'" + userId + "'}",
-            async: true,
-            success: function (response) {
-                console.log(type + ": new card saved in database with id number " + cardId);
-            },
-            error: function () {
-                console.log("Error saving " + type + "in database");
             }
         });
-    }
+    });
 
 })(jQuery, window.Fitness);

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Fitness.Data;
 using Fitness.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -42,6 +43,7 @@ namespace Fitness.Controllers
         public async Task<IActionResult> Add(User model)
         {
             var user = model;
+            user.Image = "avatar.jpg";
             var card = new Card()
             {
                 IsActive = true,
@@ -60,43 +62,79 @@ namespace Fitness.Controllers
         public async Task<IActionResult> Profile(int id)
         {
             var model = await _context.FitnessUsers.FirstOrDefaultAsync(x => x.UserId == id);
+            var basicAbonaments = await _context.BasicAbonaments.ToListAsync();
+            
+            List<SelectListItem> allBasicAbonaments = new List<SelectListItem>();
+            foreach(var item in basicAbonaments)
+            {
+                allBasicAbonaments.Add(new SelectListItem
+                {
+                    Value = item.Name,
+                    Text = item.Name,
+                });
+            }
             var cards = await _context.Cards.Where(x => x.UserId == id)
-                .Include(x => x.Abonaments)
                 .FirstOrDefaultAsync();
+
+            var abonaments = await _context.Abonaments.Where(x => x.CardId == cards.Id).ToListAsync();
+            cards.Abonaments = abonaments;
+            
 
             var userView = new UserViewModel()
             {
                 User = model,
                 Cards = cards,
+                Abonaments = abonaments,
+                AllBasicAbonaments = allBasicAbonaments,
+
             };
 
             ViewBag.Title = "Profil oldal";
+            ViewData["CardId"] = cards.Id;
             ViewBag.Action = nameof(Profile);
             return View("Profile", userView);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Profile(AbonamentViewModel model)
+        public async Task<IActionResult> Profile(UserViewModel model)
         {
 
-            //var accessDays = GetAccessDays(model.AccessDays);
-            //var abonamentFromDb = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == model.Abonament.Id);
+            var basicAbonament = await _context.BasicAbonaments.FirstOrDefaultAsync(x => x.Name == model.NewAbonament.Name);
+            Abonament abonament = new Abonament()
+            {
+                Name = basicAbonament.Name,
+                AccessLimit = model.NewAbonament.AccessLimit,
+                IsDeleted = basicAbonament.IsDeleted,
+                StartDate = model.NewAbonament.StartDate,
+                EndDate = model.NewAbonament.EndDate,
+                CardId = model.Cards.Id,
+            };
 
-            //abonamentFromDb.Name = model.Abonament.Name;
-            //abonamentFromDb.Description = model.Abonament.Description;
-            //abonamentFromDb.Type = model.Abonament.Type;
-            //abonamentFromDb.CompanyId = 1;
-            //abonamentFromDb.Constraints = accessDays;
-            //abonamentFromDb.StartDate = model.Abonament.StartDate;
-            //abonamentFromDb.EndDate = model.Abonament.EndDate;
-            //abonamentFromDb.AccessLimit = model.Abonament.AccessLimit;
-            //abonamentFromDb.StartTime = model.Abonament.StartTime;
-            //abonamentFromDb.EndTime = model.Abonament.EndTime;
-            //abonamentFromDb.AccessLimitPerDay = model.Abonament.AccessLimitPerDay;
-            //abonamentFromDb.IsDeleted = model.Abonament.IsDeleted;
+            _context.Abonaments.Add(abonament);
+            await _context.SaveChangesAsync();
 
+            return RedirectToAction(nameof(Profile));
+        }
 
-            //_context.Abonaments.Update(abonamentFromDb);
+        [HttpPost]
+        public async Task<IActionResult> AddAbonament(UserViewModel model)
+        {
+
+            //var basicAbonament = await _context.BasicAbonaments.FirstOrDefaultAsync(x => x.Name == model.NewAbonament.Name);
+            //Abonament abonament = new Abonament()
+            //{
+            //    Name = basicAbonament.Name,
+            //    Description = basicAbonament.Description,
+            //    Type = basicAbonament.Type,
+            //    Constraints = basicAbonament.Constraints,
+            //    AccessLimit = basicAbonament.AccessLimit,
+            //    AccessLimitPerDay = basicAbonament.AccessLimitPerDay,
+            //    CompanyId = basicAbonament.CompanyId,
+            //    IsDeleted = basicAbonament.IsDeleted,
+            //    CardId = model.Cards.Id,
+            //};
+
+            //_context.Abonaments.Add(abonament);
             //await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
