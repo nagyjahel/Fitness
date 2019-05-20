@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Fitness.Data.Migrations
+namespace Fitness.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -164,13 +164,9 @@ namespace Fitness.Data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<DateTime>("RegistrationDate");
-
-                    b.Property<int?>("TypeId");
+                    b.Property<string>("Phone");
 
                     b.HasKey("UserId");
-
-                    b.HasIndex("TypeId");
 
                     b.ToTable("FitnessUsers");
                 });
@@ -362,13 +358,6 @@ namespace Fitness.Data.Migrations
                     b.HasOne("Fitness.Models.CompanyType", "Type")
                         .WithMany()
                         .HasForeignKey("Typeid");
-                });
-
-            modelBuilder.Entity("Fitness.Models.User", b =>
-                {
-                    b.HasOne("Fitness.Models.UserType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

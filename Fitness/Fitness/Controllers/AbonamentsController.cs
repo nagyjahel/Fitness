@@ -39,7 +39,7 @@ namespace Fitness.Controllers
             model.AccessDays = GetSelectListItems();
             ViewBag.Title = "Új bérlet hozzáadása";
             ViewBag.Action = nameof(Add);
-            return View("Edit", model);
+            return View("Add", model);
         }
 
         [HttpPost]
@@ -68,6 +68,46 @@ namespace Fitness.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == id);
+            var modelView = new AbonamentViewModel()
+            {
+                Abonament = model
+            };
+            modelView.AccessDays = GetNewSelectListItems(model.Constraints);
+            ViewBag.Title = "Bérlet szerkesztése";
+            ViewBag.Action = nameof(Edit);
+            return View("Edit", modelView);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AbonamentViewModel model)
+        {
+
+            var accessDays = GetAccessDays(model.AccessDays);
+            var abonamentFromDb = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == model.Abonament.Id);
+            
+            abonamentFromDb.Name = model.Abonament.Name;
+            abonamentFromDb.Description = model.Abonament.Description;
+            abonamentFromDb.Type = model.Abonament.Type;
+            abonamentFromDb.CompanyId = 1;
+            abonamentFromDb.Constraints = accessDays;
+            abonamentFromDb.StartDate = model.Abonament.StartDate;
+            abonamentFromDb.EndDate = model.Abonament.EndDate;
+            abonamentFromDb.AccessLimit = model.Abonament.AccessLimit;
+            abonamentFromDb.StartTime = model.Abonament.StartTime;
+            abonamentFromDb.EndTime = model.Abonament.EndTime;
+            abonamentFromDb.AccessLimitPerDay = model.Abonament.AccessLimitPerDay;
+            abonamentFromDb.IsDeleted = model.Abonament.IsDeleted;
+            
+
+             _context.Abonaments.Update(abonamentFromDb);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private List<SelectListItem> GetSelectListItems()
         {
             var selectList = new List<SelectListItem>();
@@ -84,6 +124,34 @@ namespace Fitness.Controllers
                     Value = enumValue.ToString(),
                     Text = GetDayName(enumValue)
                 });
+            }
+
+            return selectList;
+        }
+
+        private List<SelectListItem> GetNewSelectListItems(String days)
+        {
+            var selectList = new List<SelectListItem>();
+            var accessDays = days.Split(',').ToArray();
+            var enumValues = Enum.GetValues(typeof(Enums.AccesDays)) as Enums.AccesDays[];
+            if (enumValues == null)
+                return null;
+
+            foreach (var enumValue in enumValues)
+            {
+                var nameOfTheDay = GetDayName(enumValue);
+                var selected = false;
+                if (accessDays.Contains(enumValue.ToString()))
+                {
+                    selected = true;
+                }
+                selectList.Add(new SelectListItem
+                {
+                    Value = enumValue.ToString(),
+                    Text = GetDayName(enumValue),
+                    Selected = selected
+                });
+
             }
 
             return selectList;

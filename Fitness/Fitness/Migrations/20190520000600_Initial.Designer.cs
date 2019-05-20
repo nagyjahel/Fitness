@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Fitness.Data.Migrations
+namespace Fitness.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190519175705_Initial")]
+    [Migration("20190520000600_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,13 +166,9 @@ namespace Fitness.Data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<DateTime>("RegistrationDate");
-
-                    b.Property<int?>("TypeId");
+                    b.Property<string>("Phone");
 
                     b.HasKey("UserId");
-
-                    b.HasIndex("TypeId");
 
                     b.ToTable("FitnessUsers");
                 });
@@ -364,13 +360,6 @@ namespace Fitness.Data.Migrations
                     b.HasOne("Fitness.Models.CompanyType", "Type")
                         .WithMany()
                         .HasForeignKey("Typeid");
-                });
-
-            modelBuilder.Entity("Fitness.Models.User", b =>
-                {
-                    b.HasOne("Fitness.Models.UserType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

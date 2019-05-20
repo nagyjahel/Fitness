@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
     <Compile Remove="Data\Migrations\20190519111937_Initial.cs" />
     <Compile Remove="Data\Migrations\20190519111937_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190519175705_Initial.cs" />
+    <Compile Remove="Data\Migrations\20190519175705_Initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190519220812_Initial.cs" />
+    <Compile Remove="Data\Migrations\20190519220812_Initial.Designer.cs" />
   </ItemGroup>
 
 
@@ -19,6 +25,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

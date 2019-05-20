@@ -25,13 +25,14 @@ namespace Fitness.Models
         public Nullable<TimeSpan> StartTime { get; set; }
         [Display(Name = "Hányig")]
         public Nullable<TimeSpan> EndTime { get; set; }
-        [Display(Name = "Maximális belépések száma naponta")]
+        [Display(Name = "Belépések maximális száma naponta")]
         public int AccessLimitPerDay { get; set; }
-        [Display(Name = "Maximális belépések száma")]
+        [Display(Name = "Belépések maximális száma")]
         public int AccessLimit { get; set; }
         public int CompanyId { get; set; }
         public bool IsDeleted { get; set; }
         [NotMapped]
+        public int CardId { get; set; }
         public List<Cards> ClientAbonaments { get; set; }
        
     }
