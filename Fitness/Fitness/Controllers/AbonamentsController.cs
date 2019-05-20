@@ -26,7 +26,7 @@ namespace Fitness.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var model = await _context.Abonaments.ToListAsync();
+            var model = await _context.BasicAbonaments.ToListAsync();
             return View(model);
         }
 
@@ -46,23 +46,19 @@ namespace Fitness.Controllers
         public async Task<IActionResult> Add(AbonamentViewModel model)
         {
             var accessDays = GetAccessDays(model.AccessDays);
-            Abonament abonament = new Abonament()
+            BasicAbonament abonament = new BasicAbonament()
             {
-                Name = model.Abonament.Name,
-                Description = model.Abonament.Description,
-                Type = model.Abonament.Type,
+                Name = model.Name,
+                Description = model.Description,
+                Type = model.Type,
                 CompanyId = 1,
                 Constraints = accessDays,
-                StartDate = model.Abonament.StartDate,
-                EndDate = model.Abonament.EndDate,
-                AccessLimit = model.Abonament.AccessLimit,
-                StartTime = model.Abonament.StartTime,
-                EndTime = model.Abonament.EndTime,
-                AccessLimitPerDay = model.Abonament.AccessLimitPerDay,
-                IsDeleted = false
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                AccessLimitPerDay = model.AccessLimitPerDay,
             };
 
-            _context.Abonaments.Add(abonament);
+            _context.BasicAbonaments.Add(abonament);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -70,10 +66,17 @@ namespace Fitness.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var model = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == id);
+            var model = await _context.BasicAbonaments.FirstOrDefaultAsync(x => x.Id == id);
             var modelView = new AbonamentViewModel()
             {
-                Abonament = model
+                Name = model.Name,
+                Description = model.Description,
+                Type = model.Type,
+                CompanyId = 1,
+                Constraints = model.Constraints,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                AccessLimitPerDay = model.AccessLimitPerDay,
             };
             modelView.AccessDays = GetNewSelectListItems(model.Constraints);
             ViewBag.Title = "Bérlet szerkesztése";
@@ -86,23 +89,19 @@ namespace Fitness.Controllers
         {
 
             var accessDays = GetAccessDays(model.AccessDays);
-            var abonamentFromDb = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == model.Abonament.Id);
-            
-            abonamentFromDb.Name = model.Abonament.Name;
-            abonamentFromDb.Description = model.Abonament.Description;
-            abonamentFromDb.Type = model.Abonament.Type;
+            var abonamentFromDb = await _context.BasicAbonaments.FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            abonamentFromDb.Name = model.Name;
+            abonamentFromDb.Description = model.Description;
+            abonamentFromDb.Type = model.Type;
             abonamentFromDb.CompanyId = 1;
             abonamentFromDb.Constraints = accessDays;
-            abonamentFromDb.StartDate = model.Abonament.StartDate;
-            abonamentFromDb.EndDate = model.Abonament.EndDate;
-            abonamentFromDb.AccessLimit = model.Abonament.AccessLimit;
-            abonamentFromDb.StartTime = model.Abonament.StartTime;
-            abonamentFromDb.EndTime = model.Abonament.EndTime;
-            abonamentFromDb.AccessLimitPerDay = model.Abonament.AccessLimitPerDay;
-            abonamentFromDb.IsDeleted = model.Abonament.IsDeleted;
-            
+            abonamentFromDb.StartTime = model.StartTime;
+            abonamentFromDb.EndTime = model.EndTime;
+            abonamentFromDb.AccessLimitPerDay = model.AccessLimitPerDay;
 
-             _context.Abonaments.Update(abonamentFromDb);
+
+            _context.BasicAbonaments.Update(abonamentFromDb);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

@@ -15,42 +15,42 @@
     <div class="col-lg-12 row">
         <div class="col-lg-12 row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@Model.Abonament.Id" />
+            <input type="hidden" asp-for="@Model.Id" />
             <div class="form-group col-lg-6">
-                <label asp-for="@Model.Abonament.Name" class="control-label"></label>
-                <input type="text" asp-for="@Model.Abonament.Name" class="form-control" />
-                <span asp-validation-for="@Model.Abonament.Name" class="text-danger"></span>
+                <label asp-for="@Model.Name" class="control-label"></label>
+                <input type="text" asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
             </div>
             <div class="form-group col-lg-6">
-                <label asp-for="@Model.Abonament.Type" class="control-label"></label>
-                <select id="selectedType" asp-for="@Model.Abonament.Type" asp-items="Html.GetEnumSelectList<Fitness.Models.Enums.AbonamentType>()" class="form-control">
+                <label asp-for="@Model.Type" class="control-label"></label>
+                <select id="selectedType" asp-for="@Model.Type" asp-items="Html.GetEnumSelectList<Fitness.Models.Enums.AbonamentType>()" class="form-control">
                     <option selected="selected" value="">Kérem válasszon</option>
                 </select>
-                <span asp-validation-for="@Model.Abonament.Type" class="text-danger"></span>
+                <span asp-validation-for="@Model.Type" class="text-danger"></span>
             </div>
             <div class="form-group col-lg-12">
-                <label asp-for="@Model.Abonament.Description" class="control-label"></label>
-                <textarea asp-for="@Model.Abonament.Description" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Abonament.Description" class="text-danger"></span>
+                <label asp-for="@Model.Description" class="control-label"></label>
+                <textarea asp-for="@Model.Description" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-12 row">
+        @*<div class="col-lg-12 row">
             <div class="form-group col-lg-4" id="startDate" hidden>
-                <label asp-for="@Model.Abonament.StartDate" class="control-label"></label>
-                <input type="date" asp-for="@Model.Abonament.StartDate" class="form-control" />
-                <span asp-validation-for="@Model.Abonament.StartDate" class="text-danger"></span>
+                <label asp-for="@Model.StartDate" class="control-label"></label>
+                <input type="date" asp-for="@Model.StartDate" class="form-control" />
+                <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group col-lg-4" id="endDate" hidden>
-                <label asp-for="@Model.Abonament.EndDate" class="control-label"></label>
-                <input type="date" asp-for="@Model.Abonament.EndDate" class="form-control" />
-                <span asp-validation-for="@Model.Abonament.EndDate" class="text-danger"></span>
+                <label asp-for="@Model.EndDate" class="control-label"></label>
+                <input type="date" asp-for="@Model.EndDate" class="form-control" />
+                <span asp-validation-for="@Model.EndDate" class="text-danger"></span>
             </div>
             <div class="accesLimit form-group col-lg-4" id="accessLimit" hidden>
-                <label asp-for="@Model.Abonament.AccessLimit" class="control-label"></label>
-                <input type="number" asp-for="@Model.Abonament.AccessLimit" class="form-control"  />
-                <span asp-validation-for="@Model.Abonament.AccessLimit" class="text-danger"></span>
+                <label asp-for="@Model.AccessLimit" class="control-label"></label>
+                <input type="number" asp-for="@Model.AccessLimit" class="form-control"  />
+                <span asp-validation-for="@Model.AccessLimit" class="text-danger"></span>
             </div>
-        </div>
+        </div>*@
 
         <div class="col-12" style="padding-top:20px">
             <h5>További megszorítások</h5>
@@ -58,20 +58,20 @@
 
         <div class="col-lg-12 row">
             <div class="form-group col-lg-4">
-                <label asp-for="@Model.Abonament.StartTime" class="control-label"></label>
-                <input type="time" asp-for="@Model.Abonament.StartTime" class="form-control" />
-                <span asp-validation-for="@Model.Abonament.StartTime" class="text-danger"></span>
+                <label asp-for="@Model.StartTime" class="control-label"></label>
+                <input type="time" asp-for="@Model.StartTime" class="form-control" />
+                <span asp-validation-for="@Model.StartTime" class="text-danger"></span>
             </div>
             <div class="form-group col-lg-4">
-                <label asp-for="@Model.Abonament.EndTime" class="control-label"></label>
-                <input type="time" asp-for="@Model.Abonament.EndTime" class="form-control"  />
-                <span asp-validation-for="@Model.Abonament.EndTime" class="text-danger"></span>
+                <label asp-for="@Model.EndTime" class="control-label"></label>
+                <input type="time" asp-for="@Model.EndTime" class="form-control"  />
+                <span asp-validation-for="@Model.EndTime" class="text-danger"></span>
             </div>
 
             <div class="form-group col-lg-4">
-                <label asp-for="@Model.Abonament.AccessLimitPerDay" class="control-label"></label>
-                <input type="number" asp-for="@Model.Abonament.AccessLimitPerDay" class="form-control"  />
-                <span asp-validation-for="@Model.Abonament.AccessLimitPerDay" class="text-danger"></span>
+                <label asp-for="@Model.AccessLimitPerDay" class="control-label"></label>
+                <input type="number" asp-for="@Model.AccessLimitPerDay" class="form-control"  />
+                <span asp-validation-for="@Model.AccessLimitPerDay" class="text-danger"></span>
             </div>
         </div>
         <div class="col-lg-12">
