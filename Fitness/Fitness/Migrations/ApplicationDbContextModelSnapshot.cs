@@ -38,7 +38,7 @@ namespace Fitness.Migrations
 
                     b.Property<TimeSpan?>("EndTime");
 
-                    b.Property<int>("Name");
+                    b.Property<string>("Name");
 
                     b.Property<TimeSpan?>("StartTime");
 

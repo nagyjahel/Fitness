@@ -10,7 +10,7 @@ namespace Fitness.Models
     {
         public int Id { get; set; }
         [Display(Name = "Bérlet neve")]
-        public int Name { get; set; }
+        public string Name { get; set; }
         [Display(Name = "Bérlet leírása")]
         public string Description { get; set; }
         [Display(Name = "Bérlet típusa")]

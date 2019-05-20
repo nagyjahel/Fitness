@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitness.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190520082734_Initial")]
+    [Migration("20190520084222_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace Fitness.Migrations
 
                     b.Property<TimeSpan?>("EndTime");
 
-                    b.Property<int>("Name");
+                    b.Property<string>("Name");
 
                     b.Property<TimeSpan?>("StartTime");
 

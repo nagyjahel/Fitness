@@ -1,4 +1,4 @@
-﻿@model List<Abonament>
+﻿@model List<BasicAbonament>
 @{
     ViewData["Title"] = "Bérletek";
 }
@@ -71,13 +71,13 @@
                                     @Html.DisplayFor(modelItem => item.Constraints)
                                 </div>
                                 <hr />
-                                @if (item.StartDate != null && item.EndDate != null)
+                                @*@if (item.StartDate != null && item.EndDate != null)
                                 {
                                     <div class="col-lg-6 list listElementModules">
                                         <b>Érvényességi időtartam (nap):</b><br />
                                         @Html.DisplayFor(modelItem => item.StartDate) - tól @Html.DisplayFor(modelItem => item.EndDate) - ig
                                     </div>
-                                }
+                                }*@
                                 @if (item.StartTime != null && item.EndTime != null)
                                 {
                                     <div class="col-lg-6 list listElementModules">
@@ -86,16 +86,16 @@
                                     </div>
                                     <hr />
                                 }
-                                @if (item.AccessLimit != 0)
+                                @*@if (item.AccessLimit != 0)
                                 {
                                     <div class="@(item.AccessLimitPerDay == 0 ? "col-lg-12" : "col-lg-6") list listElementModules">
                                         <b>Belépések maximális száma:</b><br />
                                         @Html.DisplayFor(modelItem => item.AccessLimit)
                                     </div>
-                                }
+                                }*@
                                 @if (item.AccessLimitPerDay != 0)
                                 {
-                                    <div class="@(item.AccessLimit == 0 ? "col-lg-12" : "col-lg-6") list listElementModules">
+                                    <div class="@(item.AccessLimitPerDay == 0 ? "col-lg-12" : "col-lg-6") list listElementModules">
                                         <b>Belépések maximális száma/nap:</b><br />
                                         @Html.DisplayFor(modelItem => item.AccessLimitPerDay)
                                     </div>
