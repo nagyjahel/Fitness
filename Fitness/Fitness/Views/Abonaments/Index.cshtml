@@ -78,14 +78,14 @@
                                         @Html.DisplayFor(modelItem => item.StartDate) - tól @Html.DisplayFor(modelItem => item.EndDate) - ig
                                     </div>
                                 }*@
-                                @if (item.StartTime != null && item.EndTime != null)
-                                {
+                                @*@if (item.StartTime != null && item.EndTime != null)
+                                {*@
                                     <div class="col-lg-6 list listElementModules">
                                         <b>Érvényességi időtartam (óra):</b><br />
-                                        @Html.DisplayFor(modelItem => item.StartTime) - tól @Html.DisplayFor(modelItem => item.EndTime) - ig
+                                        @*@Html.DisplayFor(modelItem => item.StartTime) - tól @Html.DisplayFor(modelItem => item.EndTime) - ig*@
                                     </div>
                                     <hr />
-                                }
+                                @*}*@
                                 @*@if (item.AccessLimit != 0)
                                 {
                                     <div class="@(item.AccessLimitPerDay == 0 ? "col-lg-12" : "col-lg-6") list listElementModules">

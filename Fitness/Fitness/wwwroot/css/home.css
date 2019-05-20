@@ -1,5 +1,5 @@
 ﻿body {
-    background: url('../images/bg.jpeg');
+    background: url('../images/fitness.jpg');
 }
 
 h3 {
@@ -37,7 +37,7 @@ h4 {
 
 .navContainer {
     text-align: left;
-    padding: 60px 60px 15px 15px;
+    padding: 0px 60px 15px 15px;
 }
 
 .clientsButton {
@@ -58,4 +58,37 @@ h4 {
 .clientsButton:hover {
         opacity: 0.5;
         text-decoration: none;
+}
+
+#existingClient {
+    background-color: rgba(36, 165, 142,0.5);
+    
+}
+
+.homePageButton {
+    border: 1px solid white;
+    height: 250px;
+    margin-right: 5px;
+    padding: 30px;
+}
+
+.homePageSubTitle {
+    color: white;
+    text-transform: none;
+    font-style: normal;
+    padding: 0px;
+}
+
+#cardId{
+    background-color: #ccc;
+    margin-bottom: 10px;
+}
+
+#newClient {
+    background-color: rgba(128, 128, 128,0.8);
+}
+
+.pageInformation h3{
+    font-style: normal;
+    color: white;
 }

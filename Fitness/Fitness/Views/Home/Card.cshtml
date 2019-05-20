@@ -1,0 +1,38 @@
+﻿@model CardViewModel
+@{
+    ViewData["Title"] = "Ügyfél belépés";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/abonaments_clients.css" />
+    <link rel="stylesheet" href="~/css/card.css" />
+}
+<div class="page-header">
+    <h2>@ViewData["Title"]</h2>
+</div>
+<div class="col-lg-12 row">
+    <div class="col-lg-12 row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="@Model.User.UserId" />
+        <div class="col-lg-3 listElementLeft row">
+            <img class="image" src="~/images/avatarPalma.jpg" alt="" />
+
+        </div>
+        <div class="form-group col-lg-8 row userData">
+            <div>
+                <p> <b>Családnév: </b>@Model.User.LastName</p>
+                <p><b>Keresztnév: </b> @Model.User.FirstName</p>
+                <p><b>Email: </b>@Model.User.Email</p>
+                <p><b>Telefon: </b>@Model.User.Phone</p>
+            </div>
+            @foreach(var abonament in Model.Card.Abonaments)
+            {
+            <div class="row abonament">
+                <p>@abonament.Name</p>
+                <p>@abonament.StartDate</p>
+                <p>@abonament.EndDate</p>
+            </div>
+            }
+        </div>
+    </div>
+</div>

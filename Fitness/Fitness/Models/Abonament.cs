@@ -14,8 +14,7 @@ namespace Fitness.Models
         public Nullable<DateTime> StartDate { get; set; }
         [Display(Name = "Meddig")]
         public Nullable<DateTime> EndDate { get; set; }
-        [Display(Name = "Belépések maximális száma")]
-        public int AccessLimit { get; set; }
-        public bool IsDeleted { get; set; }       
+        public bool IsDeleted { get; set; }
+       
     }
 }

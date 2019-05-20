@@ -7,7 +7,7 @@ namespace Fitness.Models
 {
     public class CardViewModel
     {
-        public Cards Card { get; set; }
-        public List<Abonament> Abonaments { get; set; }
+        public User User { get; set; }
+        public Card Card { get; set; }
     }
 }

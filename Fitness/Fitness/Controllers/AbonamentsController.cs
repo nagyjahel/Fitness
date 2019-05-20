@@ -53,8 +53,6 @@ namespace Fitness.Controllers
                 Type = model.Type,
                 CompanyId = 1,
                 Constraints = accessDays,
-                StartTime = model.StartTime,
-                EndTime = model.EndTime,
                 AccessLimitPerDay = model.AccessLimitPerDay,
             };
 
@@ -74,8 +72,6 @@ namespace Fitness.Controllers
                 Type = model.Type,
                 CompanyId = 1,
                 Constraints = model.Constraints,
-                StartTime = model.StartTime,
-                EndTime = model.EndTime,
                 AccessLimitPerDay = model.AccessLimitPerDay,
             };
             modelView.AccessDays = GetNewSelectListItems(model.Constraints);
@@ -96,8 +92,6 @@ namespace Fitness.Controllers
             abonamentFromDb.Type = model.Type;
             abonamentFromDb.CompanyId = 1;
             abonamentFromDb.Constraints = accessDays;
-            abonamentFromDb.StartTime = model.StartTime;
-            abonamentFromDb.EndTime = model.EndTime;
             abonamentFromDb.AccessLimitPerDay = model.AccessLimitPerDay;
 
 

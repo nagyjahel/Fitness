@@ -1,31 +1,40 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <link rel="stylesheet" href="~/css/home.css" />
 
-<div class="text-center container">
-    <div class="pageInformation">
+<div class="text-center container row">
+    <div class="pageInformation row">
         <h1>Üdvözlünk!</h1>
-    </div>
-    
-    <div class="pageInformation">
-        <p><h3>Az egészséged megőrzése az egyik legjobb befektetés, </h3></p>
-        <p><h3>semmi mással nem érhetsz el ekkora hozamot.</h3></p>
+        <h3>Az egészséged megőrzése az egyik legjobb befektetés, </h3>
+        <h3>semmi mással nem érhetsz el ekkora hozamot.</h3>
     </div>
     <div class="col-lg-12 row navContainer">
-        <div class="col-lg-6">
-            <div class="col-lg-6">
-                <a asp-action="Index" asp-controller="Abonaments" class="btn ui-button abonamentsButton col-lg-3"><h4>Bérletek</h4></a>
-            </div>
-            <div class="col-lg-6">
-                <a asp-action="Index" asp-controller="Clients" class="btn ui-button clientsButton col-lg-3"><h4>Ügyfelek</h4></a>
-            </div>
+        <div class="col-lg-4  homePageButton" id="existingClient">
+            <h2 class="homePageSubTitle">Ügyfél belépés</h2>
+            <form method="post">
+                <label for="cardId" style="color:#ccc"> Írd be az ügyfél kártya azonosítóját:</label>
+                <input id="cardId" class="form-control" type="text" name="cardId" />
+                <input style="background-color:#ccc"type="submit" id="cardSearch" class="btn btn-default" value="Keresés" />
+            </form>
+            @*<a asp-action="Index" asp-controller="Abonaments"><h4>Bérletek</h4></a>*@
         </div>
-        <div class="col-lg-6">
+        <a asp-action="Add" asp-controller="Clients">
+            <div class="col-lg-4  homePageButton" id="newClient">
+                <h2 class="homePageSubTitle">Új ügyfél</h2>
+                <h4 style="color:#ccc">Új ügyfél regisztrálásáért kattints ide!</h4>
 
-        </div>
-        
+            </div>
+        </a>
+
     </div>
-    
+
+    </div>
+
 </div>
+
+@section Scripts {
+    <script src="~/js/home.js"></script>
+}

@@ -15,8 +15,9 @@ namespace Fitness.Data
           
         }
         public DbSet<Abonament> Abonaments { get; set; }
+        public DbSet<AbonamentsOnCard> AbonamentsOnCard { get; set; }
         public DbSet<BasicAbonament> BasicAbonaments { get; set; }
-        public DbSet<Cards> Cards { get; set; }
+        public DbSet<Card> Cards { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyType> CompanyTypes { get; set; }
         public DbSet<Entrance> Entrances { get; set; }

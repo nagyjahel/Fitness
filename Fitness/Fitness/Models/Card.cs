@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Fitness.Models
 {
-    public class Cards
+    public class Card
     {
         public int Id { get; set; }
         public bool IsActive { get; set; }
