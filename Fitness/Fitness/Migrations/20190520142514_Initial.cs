@@ -9,6 +9,20 @@ namespace Fitness.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AbonamentsOnCard",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CardId = table.Column<int>(nullable: false),
+                    AbonamentId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AbonamentsOnCard", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -257,23 +271,21 @@ namespace Fitness.Migrations
                     Type = table.Column<byte>(nullable: false),
                     Constraints = table.Column<string>(nullable: true),
                     AccessLimitPerDay = table.Column<int>(nullable: false),
-                    StartTime = table.Column<TimeSpan>(nullable: true),
-                    EndTime = table.Column<TimeSpan>(nullable: true),
+                    AccessLimit = table.Column<int>(nullable: false),
                     CompanyId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     AbonamentId = table.Column<int>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: true),
-                    AccessLimit = table.Column<int>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: true),
-                    CardsId = table.Column<int>(nullable: true)
+                    CardId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BasicAbonaments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BasicAbonaments_Cards_CardsId",
-                        column: x => x.CardsId,
+                        name: "FK_BasicAbonaments_Cards_CardId",
+                        column: x => x.CardId,
                         principalTable: "Cards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -341,9 +353,9 @@ namespace Fitness.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasicAbonaments_CardsId",
+                name: "IX_BasicAbonaments_CardId",
                 table: "BasicAbonaments",
-                column: "CardsId");
+                column: "CardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_Typeid",
@@ -353,6 +365,9 @@ namespace Fitness.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AbonamentsOnCard");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

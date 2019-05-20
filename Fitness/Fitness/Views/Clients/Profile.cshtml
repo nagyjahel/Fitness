@@ -52,56 +52,24 @@
                 </div>
             </div>
             <div class="form-group col-lg-12">
-                <label>Ügyfél kártyái </label>
+                <label>Ügyfél kártya </label>
                 <div class="col-lg-12">
-                    @foreach (var element in Model.Cards)
+
+                    <h5>@Model.Cards.Id</h5>
+                    <label>Bérletek</label>
+                    @foreach (var item in Model.Cards.Abonaments)
                     {
-                        <h5>@element.Card.Id</h5>
-                        <label>Bérletek</label>
-                        foreach(var item in element.Card.Abonaments)
-                        {
                         <h5>@item.Name</h5>
-                        }
-
                     }
+
+
                 </div>
-                
+
             </div>
 
         </div>
 
-        <div class="form-group col-lg-12">
-            <button class="btn ui-button addCardButton" id="addNewCard"><h5>Új kártya</h5></button>
-        </div>
-        <div class="col-lg-12" id="newCard" hidden>
-            <div class="col-lg-6">
-                <div class="col-lg-4" style="padding:0px">
-                    <h5>Kártya azonosítója:</h5>
-                </div>
-                <div class="col-lg-8" style="padding:0px">
-                    <input type="text" class="form-control" id="cardId"/>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="col-lg-4" style="padding:0px">
-                    <h5>Érvényesség:</h5>
-                </div>
-                <div class="col-lg-8" style="padding:0px">
-                    <div class="col-lg-6" style="padding:0px">
-                        <input type="date" class="form-control" id="cardDateFrom" />
-                    </div>
-                    <div class="col-lg-6" style="padding:0px">
-                        <input type="date" class="form-control" id="cardDateTo"/>
-                    </div>
 
-                </div>
-            </div>
-                
-            
-            <div class="col-lg-12">
-                <button class="btn btn-default" id="addCardToUser">Hozzáad</button>
-            </div>
-        </div>
         <div class="form-group col-lg-12">
             <a asp-action="" asp-controller="Clients" class="btn ui-button addCardButton"><h5>Új bérlet</h5></a>
         </div>
@@ -113,6 +81,32 @@
 
     <div class="col-12">
         <a asp-action="Index">Vissza az ügyfelekhez</a>
+    </div>
+
+    <div class="col-lg-12 row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group col-lg-6">
+            <label asp-for="@Model.NewAbonament.Type" class="control-label"></label>
+            <select id="selectedType" asp-for="@Model.NewAbonament.Type" asp-items="Html.GetEnumSelectList<Fitness.Models.Enums.AbonamentType>()" class="form-control">
+                <option selected="selected" value="">Kérem válasszon</option>
+            </select>
+            <span asp-validation-for="@Model.NewAbonament.Type" class="text-danger"></span>
+        </div>
+        <div class="form-group col-lg-6">
+            <label asp-for="@Model.NewAbonament.StartDate" class="control-label"></label>
+            <input type="date" asp-for="@Model.NewAbonament.StartDate" id="lastName" class="form-control" />
+            <span asp-validation-for="@Model.NewAbonament.StartDate" class="text-danger"></span>
+        </div>
+        <div class="form-group col-lg-6">
+            <label asp-for="@Model.NewAbonament.EndDate" class="control-label"></label>
+            <input type="date" asp-for="@Model.NewAbonament.EndDate" id="email" class="form-control" disabled />
+            <span asp-validation-for="@Model.NewAbonament.EndDate" class="text-danger"></span>
+        </div>
+        <div class="form-group col-lg-6">
+            <label asp-for="@Model.NewAbonament.AccessLimit" class="control-label"></label>
+            <input type="number" asp-for="@Model.NewAbonament.AccessLimit" id="phone" class="form-control" />
+            <span asp-validation-for="@Model.NewAbonament.AccessLimit" class="text-danger"></span>
+        </div>
     </div>
 
 

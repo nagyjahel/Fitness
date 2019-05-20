@@ -42,38 +42,38 @@ namespace Fitness.Controllers
         public async Task<IActionResult> Add(User model)
         {
             var user = model;
+            var card = new Card()
+            {
+                IsActive = true,
+                IsDeleted = false,
+            };
             _context.FitnessUsers.Add(user);
+            await _context.SaveChangesAsync();
+
+            card.UserId = user.UserId;
+            _context.Cards.Add(card);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
 
-        //public async Task<IActionResult> Profile(int id)
-        //{
-        //    var model = await _context.FitnessUsers.FirstOrDefaultAsync(x => x.UserId == id);
-        //    var cards = await _context.Cards.Where(x => x.UserId == id).ToListAsync();
-        //    List<CardViewModel> cardsList = new List<CardViewModel>();
-        //    foreach(var card in cards)
-        //    {
-        //        var abonaments = _context.Abonaments.Where(x => x.CardId == card.Id).ToListAsync();
-        //        var cardViewModel = new CardViewModel()
-        //        {
-        //            Card = card,
-        //            Abonaments = abonaments.Result
-        //        };
-        //        cardsList.Add(cardViewModel);
-        //    }
+        public async Task<IActionResult> Profile(int id)
+        {
+            var model = await _context.FitnessUsers.FirstOrDefaultAsync(x => x.UserId == id);
+            var cards = await _context.Cards.Where(x => x.UserId == id)
+                .Include(x => x.Abonaments)
+                .FirstOrDefaultAsync();
 
-        //    var userView = new UserViewModel()
-        //    {
-        //        User = model,
-        //        Cards = cardsList
-        //    };
+            var userView = new UserViewModel()
+            {
+                User = model,
+                Cards = cards,
+            };
 
-        //    ViewBag.Title = "Profil oldal";
-        //    ViewBag.Action = nameof(Profile);
-        //    return View("Profile", userView);
-        //}
+            ViewBag.Title = "Profil oldal";
+            ViewBag.Action = nameof(Profile);
+            return View("Profile", userView);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Profile(AbonamentViewModel model)

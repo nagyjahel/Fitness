@@ -8,6 +8,7 @@ namespace Fitness.Models
     public class UserViewModel
     {
         public User User { get; set; }
-        public List<CardViewModel> Cards { get; set; }
+        public Card Cards { get; set; }
+        public Abonament NewAbonament { get; set; }
     }
 }

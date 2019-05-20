@@ -19,11 +19,28 @@ namespace Fitness.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Fitness.Models.AbonamentsOnCard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AbonamentId");
+
+                    b.Property<int>("CardId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AbonamentsOnCard");
+                });
+
             modelBuilder.Entity("Fitness.Models.BasicAbonament", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccessLimit");
 
                     b.Property<int>("AccessLimitPerDay");
 
@@ -36,11 +53,9 @@ namespace Fitness.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<TimeSpan?>("EndTime");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
-
-                    b.Property<TimeSpan?>("StartTime");
 
                     b.Property<byte>("Type");
 
@@ -51,7 +66,7 @@ namespace Fitness.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("BasicAbonament");
                 });
 
-            modelBuilder.Entity("Fitness.Models.Cards", b =>
+            modelBuilder.Entity("Fitness.Models.Card", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -352,17 +367,13 @@ namespace Fitness.Migrations
 
                     b.Property<int>("AbonamentId");
 
-                    b.Property<int>("AccessLimit");
-
-                    b.Property<int?>("CardsId");
+                    b.Property<int?>("CardId");
 
                     b.Property<DateTime?>("EndDate");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<DateTime?>("StartDate");
 
-                    b.HasIndex("CardsId");
+                    b.HasIndex("CardId");
 
                     b.HasDiscriminator().HasValue("Abonament");
                 });
@@ -421,9 +432,9 @@ namespace Fitness.Migrations
 
             modelBuilder.Entity("Fitness.Models.Abonament", b =>
                 {
-                    b.HasOne("Fitness.Models.Cards")
+                    b.HasOne("Fitness.Models.Card")
                         .WithMany("Abonaments")
-                        .HasForeignKey("CardsId");
+                        .HasForeignKey("CardId");
                 });
 #pragma warning restore 612, 618
         }
