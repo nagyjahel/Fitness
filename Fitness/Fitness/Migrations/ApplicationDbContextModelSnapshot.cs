@@ -19,13 +19,11 @@ namespace Fitness.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Fitness.Models.Abonament", b =>
+            modelBuilder.Entity("Fitness.Models.BasicAbonament", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccessLimit");
 
                     b.Property<int>("AccessLimitPerDay");
 
@@ -35,15 +33,12 @@ namespace Fitness.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime?>("EndDate");
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
 
                     b.Property<TimeSpan?>("EndTime");
 
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime?>("StartDate");
+                    b.Property<int>("Name");
 
                     b.Property<TimeSpan?>("StartTime");
 
@@ -51,7 +46,9 @@ namespace Fitness.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Abonaments");
+                    b.ToTable("BasicAbonaments");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("BasicAbonament");
                 });
 
             modelBuilder.Entity("Fitness.Models.Cards", b =>
@@ -60,13 +57,9 @@ namespace Fitness.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AbonamentId");
-
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
-
-                    b.Property<int>("NumberOfRemainingEntrances");
 
                     b.Property<int>("UserId");
 
@@ -353,6 +346,27 @@ namespace Fitness.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Fitness.Models.Abonament", b =>
+                {
+                    b.HasBaseType("Fitness.Models.BasicAbonament");
+
+                    b.Property<int>("AbonamentId");
+
+                    b.Property<int>("AccessLimit");
+
+                    b.Property<int?>("CardsId");
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("StartDate");
+
+                    b.HasIndex("CardsId");
+
+                    b.HasDiscriminator().HasValue("Abonament");
+                });
+
             modelBuilder.Entity("Fitness.Models.Company", b =>
                 {
                     b.HasOne("Fitness.Models.CompanyType", "Type")
@@ -403,6 +417,13 @@ namespace Fitness.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Fitness.Models.Abonament", b =>
+                {
+                    b.HasOne("Fitness.Models.Cards")
+                        .WithMany("Abonaments")
+                        .HasForeignKey("CardsId");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Fitness.Models
 {
-    public class AbonamentViewModel
+    public class AbonamentViewModel : BasicAbonament
     {
-        public Abonament Abonament { get; set; }
         [Display(Name = "Engedélyezett napok a belépésre")]
         public List<SelectListItem> AccessDays { get; set; }
         

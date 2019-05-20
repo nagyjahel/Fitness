@@ -42,71 +42,67 @@ namespace Fitness.Controllers
             return View("Add", model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(AbonamentViewModel model)
-        {
-            var accessDays = GetAccessDays(model.AccessDays);
-            Abonament abonament = new Abonament()
-            {
-                Name = model.Abonament.Name,
-                Description = model.Abonament.Description,
-                Type = model.Abonament.Type,
-                CompanyId = 1,
-                Constraints = accessDays,
-                StartDate = model.Abonament.StartDate,
-                EndDate = model.Abonament.EndDate,
-                AccessLimit = model.Abonament.AccessLimit,
-                StartTime = model.Abonament.StartTime,
-                EndTime = model.Abonament.EndTime,
-                AccessLimitPerDay = model.Abonament.AccessLimitPerDay,
-                IsDeleted = false
-            };
+        //[HttpPost]
+        //public async Task<IActionResult> Add(AbonamentViewModel model)
+        //{
+        //    var accessDays = GetAccessDays(model.AccessDays);
+        //    BasicAbonament abonament = new BasicAbonament()
+        //    {
+        //        Name = model.Name,
+        //        Description = model.Description,
+        //        Type = model.Type,
+        //        CompanyId = 1,
+        //        Constraints = accessDays,
+        //        StartTime = model.StartTime,
+        //        EndTime = model.EndTime,
+        //        AccessLimitPerDay = model.AccessLimitPerDay,
+        //    };
 
-            _context.Abonaments.Add(abonament);
-            await _context.SaveChangesAsync();
+        //    _context.BasicAbonaments.Add(abonament);
+        //    await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
-        }
+        //    return RedirectToAction(nameof(Index));
+        //}
 
-        public async Task<IActionResult> Edit(int id)
-        {
-            var model = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == id);
-            var modelView = new AbonamentViewModel()
-            {
-                Abonament = model
-            };
-            modelView.AccessDays = GetNewSelectListItems(model.Constraints);
-            ViewBag.Title = "Bérlet szerkesztése";
-            ViewBag.Action = nameof(Edit);
-            return View("Edit", modelView);
-        }
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var model = await _context.BasicAbonaments.FirstOrDefaultAsync(x => x.Id == id);
+        //    var modelView = new AbonamentViewModel()
+        //    {
+        //        Abonament = model
+        //    };
+        //    modelView.AccessDays = GetNewSelectListItems(model.Constraints);
+        //    ViewBag.Title = "Bérlet szerkesztése";
+        //    ViewBag.Action = nameof(Edit);
+        //    return View("Edit", modelView);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(AbonamentViewModel model)
-        {
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(AbonamentViewModel model)
+        //{
 
-            var accessDays = GetAccessDays(model.AccessDays);
-            var abonamentFromDb = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == model.Abonament.Id);
+        //    var accessDays = GetAccessDays(model.AccessDays);
+        //    var abonamentFromDb = await _context.Abonaments.FirstOrDefaultAsync(x => x.Id == model.Abonament.Id);
             
-            abonamentFromDb.Name = model.Abonament.Name;
-            abonamentFromDb.Description = model.Abonament.Description;
-            abonamentFromDb.Type = model.Abonament.Type;
-            abonamentFromDb.CompanyId = 1;
-            abonamentFromDb.Constraints = accessDays;
-            abonamentFromDb.StartDate = model.Abonament.StartDate;
-            abonamentFromDb.EndDate = model.Abonament.EndDate;
-            abonamentFromDb.AccessLimit = model.Abonament.AccessLimit;
-            abonamentFromDb.StartTime = model.Abonament.StartTime;
-            abonamentFromDb.EndTime = model.Abonament.EndTime;
-            abonamentFromDb.AccessLimitPerDay = model.Abonament.AccessLimitPerDay;
-            abonamentFromDb.IsDeleted = model.Abonament.IsDeleted;
+        //    abonamentFromDb.Name = model.Abonament.Name;
+        //    abonamentFromDb.Description = model.Abonament.Description;
+        //    abonamentFromDb.Type = model.Abonament.Type;
+        //    abonamentFromDb.CompanyId = 1;
+        //    abonamentFromDb.Constraints = accessDays;
+        //    abonamentFromDb.StartDate = model.Abonament.StartDate;
+        //    abonamentFromDb.EndDate = model.Abonament.EndDate;
+        //    abonamentFromDb.AccessLimit = model.Abonament.AccessLimit;
+        //    abonamentFromDb.StartTime = model.Abonament.StartTime;
+        //    abonamentFromDb.EndTime = model.Abonament.EndTime;
+        //    abonamentFromDb.AccessLimitPerDay = model.Abonament.AccessLimitPerDay;
+        //    abonamentFromDb.IsDeleted = model.Abonament.IsDeleted;
             
 
-             _context.Abonaments.Update(abonamentFromDb);
-            await _context.SaveChangesAsync();
+        //     _context.Abonaments.Update(abonamentFromDb);
+        //    await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
-        }
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private List<SelectListItem> GetSelectListItems()
         {

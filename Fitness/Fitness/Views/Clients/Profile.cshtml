@@ -79,7 +79,7 @@
                     <h5>Kártya azonosítója:</h5>
                 </div>
                 <div class="col-lg-8" style="padding:0px">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="cardId"/>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -88,10 +88,10 @@
                 </div>
                 <div class="col-lg-8" style="padding:0px">
                     <div class="col-lg-6" style="padding:0px">
-                        <input type="date" class="form-control" />
+                        <input type="date" class="form-control" id="cardDateFrom" />
                     </div>
                     <div class="col-lg-6" style="padding:0px">
-                        <input type="date" class="form-control" />
+                        <input type="date" class="form-control" id="cardDateTo"/>
                     </div>
 
                 </div>
@@ -99,7 +99,7 @@
                 
             
             <div class="col-lg-12">
-                <a asp-action="AddCard" asp-controller="Clients" asp-route-id="@Model.User.UserId" class="btn btn-default">Hozzáad</a>
+                <button class="btn btn-default" id="addCardToUser">Hozzáad</button>
             </div>
         </div>
         <div class="form-group col-lg-12">
