@@ -15,39 +15,40 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="@Model.User.UserId" />
         <div class="col-lg-3 listElementLeft row">
-            <img class="image" src="@Model.User.Image" alt="" />
+            <img class="image" src="~/images/@Model.User.Image" alt="" />
 
         </div>
         <div class="form-group col-lg-8 row userData">
             <div>
-                <p><b>Családnév: </b>@Model.User.LastName</p>
+                <p id="@Model.User.UserId" class="userIdP"><b>Családnév: </b>@Model.User.LastName</p>
                 <p><b>Keresztnév: </b> @Model.User.FirstName</p>
                 <p><b>Email: </b>@Model.User.Email</p>
                 <p><b>Telefon: </b>@Model.User.Phone</p>
-            @foreach(var abonament in Model.Card.Abonaments)
-            {
-            <div class="abonament">
-                @if (abonament.BasicAbonament.Type == Enums.AbonamentType.AccessLimit)
+                @foreach (var abonament in Model.Card.Abonaments)
                 {
-                    <p><b>@abonament.Name </b> - Belépések száma: @abonament.AccessLimit <button class="entrance" id="@abonament.AbonamentId"class="btn btn-default"> Belépés</button></p>
-                }
-                else if (abonament.BasicAbonament.Type == Enums.AbonamentType.Periodic)
-                {
-                    <p><b>@abonament.Name </b> - Érvényességi periódus: @abonament.StartDate - @abonament.EndDate <button class="entrance" id="@abonament.AbonamentId" class="btn btn-default"> Belépés</button></p>
+                    <div class="abonament">
+                        @if (abonament.BasicAbonament.Type == Enums.AbonamentType.AccessLimit)
+                        {
+                            <p><b>@abonament.Name </b> - Belépések száma: @abonament.AccessLimit <button id="@abonament.AbonamentId" class="entrance btn btn-default"> Belépés</button></p>
+                        }
+                        else if (abonament.BasicAbonament.Type == Enums.AbonamentType.Periodic)
+                        {
+                            <p><b>@abonament.Name </b> - Érvényességi periódus: @abonament.StartDate - @abonament.EndDate <button id="@abonament.AbonamentId" class=" entrance btn btn-default"> Belépés</button></p>
 
-                }
-                else
-                {
-                    <p><b>@abonament.Name </b> - Érvényességi periódus: @abonament.StartDate - @abonament.EndDate, Belépések száma: @abonament.AccessLimit <button class="entrance" id="@abonament.AbonamentId" class="btn btn-default"> Belépés</button> </p>
+                        }
+                        else
+                        {
+                            <p><b>@abonament.Name </b> - Érvényességi periódus: @abonament.StartDate - @abonament.EndDate, Belépések száma: @abonament.AccessLimit <button  id="@abonament.AbonamentId" class=" entrance btn btn-default"> Belépés</button> </p>
+                        }
+                    </div>
                 }
             </div>
-            }
         </div>
     </div>
-</div>
 
-<script>
-    $(document).ready(function () {
-        saveUserId(@Model.User.UserId);
-    });
-</script>
+    @section Scripts {
+       
+        <script src="~/js/home.js"></script>
+    }
+
+  

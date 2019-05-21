@@ -8,27 +8,28 @@
 }
 
 <div class="page-header">
-    <h2>Belépések</h2>
+    <h2>Belepesek</h2>
 </div>
 <div class="col-lg-12 row">
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>Sorszám</th>
-                <th>Felhasználó</th>
-                <th>Abonament</th>
-                <th>Dátum</th>
+                
+                <th scope="col">Felhasznalo</th>
+                <th scope="col">Abonament</th>
+                <th scope="col">Datum</th>
             </tr>
         </thead>
-        @foreach(var entrance in Model)
+        @foreach (var entrance in Model)
         {
-            var i = 0;
-        <tr>
-            <td>@i</td>
-            <td>@entrance.User.FirstName @entrance.User.LastName</td>
-            <td>@entrance.Abonament.Name</td>
-            <td>@entrance.EnteringTime</td>
-        </tr>
+            
+            <tr>
+                
+                <td>@entrance.User.FirstName @entrance.User.LastName</td>
+                <td>@entrance.Abonament.Name</td>
+                <td>@entrance.EnteringTime</td>
+            </tr>
+           
         }
     </table>
 </div>

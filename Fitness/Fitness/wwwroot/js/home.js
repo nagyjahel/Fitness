@@ -1,8 +1,7 @@
 ﻿'use strict';
 (function ($, Fitness) {
 
-    Fitness = Fitness || {};
-    Fitness.userId = null;
+    
     function sendAjax(type,url,userId, abonamentId) {
         $.ajax({
 
@@ -10,15 +9,15 @@
 
             contentType: "application/json; charset=utf-8",
 
-            url: url,
+            url: url + "/" + userId + "/" + abonamentId,
 
-            data: { 'userId': userId, 'abonamentId': abonamentId},
+            data: "{'userId':'" + userId + "', 'abonamentId':'" + abonamentId + "'}",
 
             async: true,
 
             success: function (response) {
 
-                prompt("Sikeresen be lett léptetve!");
+                alert("Sikeresen be lett léptetve!");
                 console.log("Ok");
 
             },
@@ -31,10 +30,7 @@
 
         });
     }
-    
-    Fitness.saveUserId = function (userId) {
-        this.userId = userId;
-    };
+  
     $(document).ready(function () {
         $("#cardSearch").click(function () {
            //sendAjax('GET', 'Home/Card/',$("#cardId").val());
@@ -42,10 +38,8 @@
 
         $(".entrance").click(function () {
             $(".entrance").attr("enabled", "false");
-            sendAjax('POST', 'Home/Entrance/', Fitness.userId, $(this).attr('id'));
+            sendAjax('POST', 'Home/Entrance', $(".userIdP").attr('id'), $(this).attr('id'));
         });
     });
-
-    return Fitness;
-
+    
 })(jQuery, window.Fitness);

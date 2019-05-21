@@ -45,11 +45,11 @@ namespace Fitness.Controllers
             var user = _context.FitnessUsers.Find(card.UserId);
             if (user == null) return Index(0, -1);
 
-            var abonamentsOnCard = _context.AbonamentsOnCard.Where(a => a.CardId == card.Id).ToList();
-            List<Abonament> abonaments = new List<Abonament>();
-            foreach(var abonamentOnCard in abonamentsOnCard)
+            var abonaments = _context.Abonaments.Include(a => a.BasicAbonament).Where(a => a.CardId == card.Id).ToList();
+            
+            foreach(var abonament in abonaments)
             {
-                abonaments.Add(_context.Abonaments.Find(abonamentOnCard.AbonamentId));
+                abonament.BasicAbonament = _context.BasicAbonaments.Where(b => b.Name == abonament.Name).FirstOrDefault();
             }
             card.Abonaments = abonaments;
 
@@ -63,6 +63,7 @@ namespace Fitness.Controllers
 
 
         [HttpPost]
+        [Route("Home/Entrance/{userId}/{abonamentId}")]
         public JsonResult Entrance(int userId,int abonamentId)
         {
             _context.Entrances.Add(new Entrance()
@@ -72,7 +73,7 @@ namespace Fitness.Controllers
                 EnteringTime = DateTime.Now,
                 IsDeleted = false
             });
-
+            _context.SaveChanges();
             return Json(new
             {
                 success = true,
